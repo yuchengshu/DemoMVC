@@ -41,7 +41,7 @@ namespace Demo.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                InsertData(category);
 
                 return RedirectToAction("Index");
             }
@@ -49,6 +49,12 @@ namespace Demo.Controllers
             {
                 return View();
             }
+        }
+
+        public void InsertData(Categories category)
+        {
+            db.Categories.Add(category);
+            db.SaveChanges();
         }
 
         // GET: Demo/Edit/5
@@ -85,14 +91,22 @@ namespace Demo.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                DeleteItem(id);
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+        }
+
+        public void DeleteItem(int id)
+        {
+            Categories category = new Categories();
+            category.CategoryID = id;
+            var data = db.Categories.Find(id);
+            db.Categories.Remove(data);
+            db.SaveChanges();
         }
     }
 }
