@@ -65,15 +65,19 @@ namespace Demo.Controllers
 
         // POST: Demo/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Categories cat)
         {
             try
             {
-                // TODO: Add update logic here
-                var a = collection[3];
+                Categories newcat = db.Categories.Find(id);
+                // var item = collection[1].ToString();
+                //newcat.CategoryID = cat.CategoryID;
+                newcat.CategoryName = cat.CategoryName;
+                newcat.Description = cat.Description;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }
